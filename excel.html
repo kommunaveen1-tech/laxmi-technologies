@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Tutorials - Laxmi Technologies</title>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary: #4a00e0;
+            --secondary: #8e2de2;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --transition: all 0.3s ease;
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ff6b6b, #ff8e53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Navigation Styles */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+            display: block;
+        }
+
+        nav ul li a:hover {
+            color: #ff6b6b;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff6b6b;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .dropdown li {
+            margin: 0;
+            width: 100%;
+        }
+
+        .dropdown li a {
+            color: var(--dark);
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown li:last-child a {
+            border-bottom: none;
+        }
+
+        .dropdown li a:hover {
+            background-color: #f8f9fa;
+            color: var(--primary);
+        }
+
+        nav ul li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(74, 0, 224, 0.9), rgba(142, 45, 226, 0.9)), url('https://images.unsplash.com/photo-1618044619884-20dadb4981c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Excel Content */
+        .excel-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .section-title {
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: #4a00e0;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #4a00e0, #8e2de2);
+            border-radius: 2px;
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .formula-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid #4a00e0;
+            transition: var(--transition);
+        }
+
+        .formula-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .formula-card h3 {
+            color: #4a00e0;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .formula-card p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .formula-example {
+            background: white;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #e9ecef;
+        }
+
+        .shortcuts-list {
+            list-style: none;
+        }
+
+        .shortcuts-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .shortcuts-list li:last-child {
+            border-bottom: none;
+        }
+
+        .shortcut-key {
+            background: #4a00e0;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Video Gallery Styles */
+        .video-gallery {
+            margin-top: 3rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none; /* Prevents right-click menu */
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .video-card:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .video-info {
+            color: white;
+            width: 100%;
+        }
+
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .video-duration {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.8);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .video-card:hover .video-play-btn {
+            opacity: 1;
+        }
+
+        .video-play-btn:hover {
+            background: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-play-btn i {
+            font-size: 1.5rem;
+            color: #4a00e0;
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .modal-video {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-video video {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 2001;
+        }
+
+        .modal-title {
+            color: white;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        /* Video Filter */
+        .video-filter {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background: #f1f1f1;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            background: #4a00e0;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: #ff6b6b;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .excel-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: linear-gradient(135deg, #4a00e0, #8e2de2);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: var(--transition);
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 1rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: rgba(255, 255, 255, 0.1);
+                box-shadow: none;
+                margin-top: 0.5rem;
+                display: none;
+            }
+            
+            .dropdown.active {
+                display: block;
+            }
+            
+            .dropdown li a {
+                color: white;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-container {
+                height: 250px;
+            }
+        }
+
+        /* Prevent video download */
+        .video-container video::-webkit-media-controls-download-button {
+            display: none !important;
+        }
+        
+        .video-container video::-webkit-media-controls-enclosure {
+            overflow: hidden;
+        }
+        
+        .video-container video::-webkit-media-controls-panel {
+            width: calc(100% + 30px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <!-- Replace with your actual logo path -->
+                    <img src="LOGO.png" alt="Laxmi Technologies" class="logo-img">
+                    <h1>Laxmi Technologies</h1>
+                </div>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+                <nav>
+                    <ul id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="dropdown-parent">
+                            <a href="#" id="onlineServices">Online Services ▾</a>
+                            <ul class="dropdown">
+                                <li><a href="#" id="panCardService">PAN Card Services</a></li>
+                                <li><a href="https://uidai.gov.in/" target="_blank">Aadhar Card Download</a></li>
+                                <li><a href="https://web.umang.gov.in/landing/" target="_blank">UMANG Services</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="excel.html" class="active">Excel Tutorials</a></li>
+                        <li><a href="resume.html">Resume Builder</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Excel Tutorials & Resources</h1>
+            <p>Master Microsoft Excel with our comprehensive tutorials, formulas, shortcuts, and video guides</p>
+        </div>
+    </section>
+
+    <!-- Excel Content -->
+    <div class="container">
+        <div class="excel-content">
+            <div class="main-content">
+                <!-- Formulas Section -->
+                <section class="formulas-section">
+                    <div class="section-title">
+                        <h2>Essential Excel Formulas</h2>
+                    </div>
+                    <div class="formula-grid">
+                        <div class="formula-card">
+                            <h3>VLOOKUP</h3>
+                            <p>Looks for a value in the leftmost column of a table and returns a value in the same row from a specified column.</p>
+                            <div class="formula-example">
+                                =VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])
+                            </div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>SUMIF</h3>
+                            <p>Adds the cells specified by a given condition or criteria.</p>
+                            <div class="formula-example">
+                                =SUMIF(range, criteria, [sum_range])
+                            </div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>IF</h3>
+                            <p>Returns one value if a condition is true and another value if it's false.</p>
+                            <div class="formula-example">
+                                =IF(logical_test, value_if_true, value_if_false)
+                            </div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>INDEX-MATCH</h3>
+                            <p>A powerful combination to look up values in a table based on other values.</p>
+                            <div class="formula-example">
+                                =INDEX(return_range, MATCH(lookup_value, lookup_range, 0))
+                            </div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>COUNTIF</h3>
+                            <p>Counts the number of cells within a range that meet the given condition.</p>
+                            <div class="formula-example">
+                                =COUNTIF(range, criteria)
+                            </div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>CONCATENATE</h3>
+                            <p>Joins several text strings into one text string.</p>
+                            <div class="formula-example">
+                                =CONCATENATE(text1, text2, ...)
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Video Tutorials Section -->
+                <section class="video-gallery">
+                    <div class="section-title">
+                        <h2>Excel Video Tutorials</h2>
+                    </div>
+                    
+                    <!-- Video Filter -->
+                    <div class="video-filter">
+                        <button class="filter-btn active" data-filter="all">All Videos</button>
+                        <button class="filter-btn" data-filter="basic">Basic Functions</button>
+                        <button class="filter-btn" data-filter="formulas">Formulas</button>
+                        <button class="filter-btn" data-filter="data">Data Analysis</button>
+                        <button class="filter-btn" data-filter="charts">Charts & Graphs</button>
+                        <button class="filter-btn" data-filter="advanced">Advanced Features</button>
+                    </div>
+                    
+                    <!-- Video Grid -->
+                    <div class="video-grid" id="videoGrid">
+                        <!-- Video cards will be generated by JavaScript -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar with Shortcuts -->
+            <div class="sidebar">
+                <div class="section-title">
+                    <h2>Keyboard Shortcuts</h2>
+                </div>
+                <ul class="shortcuts-list">
+                    <li>
+                        <span>Select entire worksheet</span>
+                        <span class="shortcut-key">Ctrl + A</span>
+                    </li>
+                    <li>
+                        <span>Bold text</span>
+                        <span class="shortcut-key">Ctrl + B</span>
+                    </li>
+                    <li>
+                        <span>Copy selection</span>
+                        <span class="shortcut-key">Ctrl + C</span>
+                    </li>
+                    <li>
+                        <span>Fill down</span>
+                        <span class="shortcut-key">Ctrl + D</span>
+                    </li>
+                    <li>
+                        <span>Find</span>
+                        <span class="shortcut-key">Ctrl + F</span>
+                    </li>
+                    <li>
+                        <span>Replace</span>
+                        <span class="shortcut-key">Ctrl + H</span>
+                    </li>
+                    <li>
+                        <span>Insert hyperlink</span>
+                        <span class="shortcut-key">Ctrl + K</span>
+                    </li>
+                    <li>
+                        <span>New workbook</span>
+                        <span class="shortcut-key">Ctrl + N</span>
+                    </li>
+                    <li>
+                        <span>Open workbook</span>
+                        <span class="shortcut-key">Ctrl + O</span>
+                    </li>
+                    <li>
+                        <span>Print</span>
+                        <span class="shortcut-key">Ctrl + P</span>
+                    </li>
+                    <li>
+                        <span>Save</span>
+                        <span class="shortcut-key">Ctrl + S</span>
+                    </li>
+                    <li>
+                        <span>Paste</span>
+                        <span class="shortcut-key">Ctrl + V</span>
+                    </li>
+                    <li>
+                        <span>Cut</span>
+                        <span class="shortcut-key">Ctrl + X</span>
+                    </li>
+                    <li>
+                        <span>Undo</span>
+                        <span class="shortcut-key">Ctrl + Z</span>
+                    </li>
+                    <li>
+                        <span>Redo</span>
+                        <span class="shortcut-key">Ctrl + Y</span>
+                    </li>
+                    <li>
+                        <span>Insert new worksheet</span>
+                        <span class="shortcut-key">Shift + F11</span>
+                    </li>
+                    <li>
+                        <span>Create table</span>
+                        <span class="shortcut-key">Ctrl + T</span>
+                    </li>
+                    <li>
+                        <span>AutoSum</span>
+                        <span class="shortcut-key">Alt + =</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="modal-video">
+                <video id="modalVideo" controls controlsList="nodownload">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="modal-title" id="modalTitle"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Laxmi Technologies</h3>
+                    <p>Your trusted partner for digital government services and technological solutions.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">PAN Card Services</a></li>
+                        <li><a href="https://uidai.gov.in/" target="_blank">Aadhar Services</a></li>
+                        <li><a href="https://web.umang.gov.in/landing/" target="_blank">UMANG</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="excel.html">Excel Tutorials</a></li>
+                        <li><a href="resume.html">Resume Builder</a></li>
+                        <li><a href="#">Job Updates</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Laxmi Technologies. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Mobile Dropdown Toggle
+        const onlineServices = document.getElementById('onlineServices');
+        const dropdown = document.querySelector('.dropdown-parent .dropdown');
+        
+        if (window.innerWidth <= 768) {
+            onlineServices.addEventListener('click', (e) => {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+            });
+        }
+
+        // Video Data - Replace with your actual video data
+        const videoData = [
+            { id: 1, title: "VLOOKUP Formula", category: "formulas", duration: "1:14", src: "VLOOKUP.mp4" },
+            { id: 2, title: "SUMIF Function", category: "formulas", duration: "0:28", src: "24. SUMIF.mp4" },
+            { id: 3, title: "IF Statement Basics", category: "formulas", duration: "0:25", src: "23. IF.mp4" },
+            { id: 4, title: "INDEX Explained", category: "formulas", duration: "0:32", src: "INDEX.mp4" },
+            { id: 5, title: "COUNTIF Function", category: "formulas", duration: "0:27", src: "26. COUNTIF.mp4" },
+            { id: 6, title: "CONCATENATE Formula", category: "formulas", duration: "0:24", src: "14. CONCATENATE.mp4" },
+            { id: 7, title: "ADDITION Formula", category: "basic", duration: "0:29", src: "1. ADDITION.mp4" },
+            { id: 8, title: "MAX Formula", category: "basic", duration: "0:31", src: "11. MAX.mp4" },
+            { id: 9, title: "SUM Formula", category: "basic", duration: "0:26", src: "12. SUM.mp4" },
+            { id: 10, title: "AVERAGE Formula", category: "basic", duration: "0:28", src: "13. AVERAGE.mp4" },
+            { id: 11, title: "LEFT Formula", category: "data", duration: "0:32", src: "15. LEFT.mp4" },
+            { id: 12, title: "LENGTH Formula", category: "data", duration: "0:25", src: "16. LEN.mp4" },
+            { id: 13, title: "LOWER Formula", category: "data", duration: "0:27", src: "17. LOWER.mp4" },
+            { id: 14, title: "PROPER Function", category: "data", duration: "0:30", src: "18. PROPER.mp4" },
+            { id: 15, title: "RIGHT Formula", category: "charts", duration: "0:29", src: "19. RIGHT.mp4" },
+            { id: 16, title: "MULTIPLICATION Formula", category: "charts", duration: "0:26", src: "2. MULTIPLICATION.mp4" },
+            { id: 17, title: "TRIM Formula", category: "charts", duration: "0:24", src: "20. TRIM.mp4" },
+            { id: 18, title: "UPPER Function", category: "charts", duration: "0:31", src: "21. UPPER.mp4" },
+            { id: 19, title: "AND Function", category: "advanced", duration: "0:32", src: "22. AND.mp4" },
+            { id: 20, title: "SWITCH Function", category: "advanced", duration: "0:28", src: "22. SWITCH.mp4" },
+            { id: 21, title: "SUMIFS Function", category: "formulas", duration: "1:14", src: "25. SUMIFS.mp4" },
+            { id: 22, title: "COUNTIFS Function", category: "formulas", duration: "0:28", src: "27. COUNTIFS.mp4" },
+            { id: 23, title: "AVERAGEIF Function", category: "formulas", duration: "0:25", src: "28. AVERAGEIF.mp4" },
+            { id: 24, title: "SUBSTRACTION Formula", category: "formulas", duration: "0:32", src: "3. SUBTRACTION.mp4" },
+            { id: 25, title: "DIVISION Formula", category: "formulas", duration: "0:27", src: "4. DIVISION.mp4" },
+            { id: 26, title: "COUNTA Formula", category: "formulas", duration: "0:24", src: "5. COUNTA.mp4" },
+            { id: 27, title: "COUNTBLANK Formula", category: "basic", duration: "0:29", src: "6. COUNTBLANK.mp4" },
+            { id: 28, title: "LARGE Formula", category: "basic", duration: "0:31", src: "7. LARGE.mp4" },
+            { id: 29, title: "MINIMUM Formula", category: "basic", duration: "0:26", src: "7. MIN.mp4" },
+            { id: 30, title: "SMALL Function", category: "basic", duration: "0:28", src: "8. SMALL.mp4" },
+            { id: 31, title: "SUMPRODUCT Function", category: "data", duration: "0:32", src: "9. SUMPRODUCT.mp4" },
+            { id: 32, title: "CEILING Function", category: "formulas", duration: "1:14", src: "CEILING.mp4" },
+            { id: 33, title: "DATEDIF Function", category: "formulas", duration: "0:28", src: "DATEDIF.mp4" },
+            { id: 34, title: "FLASH FILL Function", category: "formulas", duration: "0:25", src: "FLASH FILL.mp4" },
+            { id: 35, title: "FLOOR Function", category: "formulas", duration: "0:32", src: "FLOOR.mp4" },
+            { id: 36, title: "HLOOKUP Formula", category: "formulas", duration: "0:27", src: "HLOOKUP.mp4" },
+            { id: 37, title: "MATCH Formula", category: "formulas", duration: "0:24", src: "MATCH.mp4" },
+            { id: 38, title: "NESTED V LOOKUP Formula", category: "basic", duration: "0:29", src: "NESTED V LOOK.mp4" },
+            { id: 39, title: "NETWORKDAYS Function", category: "basic", duration: "0:31", src: "NETWORKDAYS.mp4" },
+            { id: 40, title: "RANK Formula", category: "basic", duration: "0:26", src: "RANK.mp4" },
+            { id: 41, title: "REPT Formula", category: "basic", duration: "0:28", src: "REPT.mp4" },
+            { id: 42, title: "SEQUENCE Formula", category: "data", duration: "0:32", src: "SEQUENCE.mp4" },
+            { id: 43, title: "SORT Function", category: "formulas", duration: "0:27", src: "SORT.mp4" },
+            { id: 44, title: "SUMHLOOKUP Function", category: "formulas", duration: "0:24", src: "SUMHLOOKUP.mp4" },
+            { id: 45, title: "SUMVLOOKUP Function", category: "basic", duration: "0:29", src: "SUMVLOOKUP.mp4" },
+            { id: 46, title: "TRANSPOSE Function", category: "basic", duration: "0:31", src: "TRANSPOSE.mp4" },
+            { id: 47, title: "XLOOKUP Formula", category: "basic", duration: "0:26", src: "XLOOKUP.mp4" },
+            { id: 48, title: "XOR", category: "basic", duration: "0:28", src: "XOR.mp4" },
+        ];
+
+        // Function to generate video cards
+        function generateVideoCards(videos) {
+            const videoGrid = document.getElementById('videoGrid');
+            videoGrid.innerHTML = '';
+            
+            videos.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.setAttribute('data-category', video.category);
+                
+                videoCard.innerHTML = `
+                    <div class="video-container">
+                        <video preload="metadata" controlsList="nodownload" disablePictureInPicture>
+                            <source src="${video.src}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-overlay">
+                            <div class="video-info">
+                                <div class="video-title">${video.title}</div>
+                                <div class="video-duration">${video.duration}</div>
+                            </div>
+                        </div>
+                        <div class="video-play-btn">
+                            <i>▶</i>
+                        </div>
+                    </div>
+                `;
+                
+                videoGrid.appendChild(videoCard);
+                
+                // Add click event to play video in modal
+                videoCard.addEventListener('click', () => {
+                    openVideoModal(video);
+                });
+            });
+        }
+
+        // Filter videos by category
+        function filterVideos(category) {
+            if (category === 'all') {
+                generateVideoCards(videoData);
+            } else {
+                const filteredVideos = videoData.filter(video => video.category === category);
+                generateVideoCards(filteredVideos);
+            }
+        }
+
+        // Open video modal
+        function openVideoModal(video) {
+            const modal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            modalVideo.src = video.src;
+            modalTitle.textContent = video.title;
+            modal.style.display = 'flex';
+            
+            // Play the video when modal opens
+            modalVideo.play();
+        }
+
+        // Close video modal
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            modal.style.display = 'none';
+            modalVideo.pause();
+            modalVideo.currentTime = 0;
+        }
+
+        // Prevent right-click and download
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'VIDEO') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Generate all video cards initially
+            generateVideoCards(videoData);
+            
+            // Set up filter buttons
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    // Filter videos
+                    filterVideos(button.getAttribute('data-filter'));
+                });
+            });
+            
+            // Set up modal close button
+            document.getElementById('closeModal').addEventListener('click', closeVideoModal);
+            
+            // Close modal when clicking outside the video
+            document.getElementById('videoModal').addEventListener('click', (e) => {
+                if (e.target.id === 'videoModal') {
+                    closeVideoModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
